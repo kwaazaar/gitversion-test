@@ -17,14 +17,14 @@ steps:
     versionSpec: '5.x'
 
 - task: gitversion/execute@0
+  displayName: Execute GitVersion
   inputs:
     useConfigFile: true
     configFilePath: 'src/GitVersion.yml' # Setting targetPath is broken
 
 - script: |
-    echo FullSemVer: $(fullSemVer)
     echo ##vso[build.updatebuildnumber]$(fullSemVer)
-  displayName: Export GitVersion results to variables
+  displayName: Update Build.Number to $(fullSemVer)
 
 - task: DotNetCoreCLI@2
   displayName: 'restore'
