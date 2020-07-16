@@ -1,0 +1,2 @@
+next-version: 1.0 # version on next merge to master
+assembly-versioning-scheme: none # don't update AssemblyVersion (we do it manually because of runtime dependencies)
