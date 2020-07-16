@@ -64,6 +64,7 @@ steps:
   inputs:
     command: 'pack'
     packagesToPack: '**/MyLib.csproj'
+    configuration: 'Release'
     nobuild: true
-    #versioningScheme: 'off'
+    versioningScheme: 'off'
     buildProperties: 'PackageVersion=$(NuGetVersionV2)'
