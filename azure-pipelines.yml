@@ -63,5 +63,7 @@ steps:
   displayName: 'pack'
   inputs:
     command: 'pack'
-    projects: '**/MyLib.csproj'
-    arguments: '--no-build -c Release -p:PackageVersion=$(NuGetVersionV2)'
+    packagesToPack: '**/MyLib.csproj'
+    nobuild: true
+    #versioningScheme: 'off'
+    buildProperties: 'PackageVersion=$(NuGetVersionV2)'
