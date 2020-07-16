@@ -1,0 +1,74 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  verbosityLevel: Normal # Valid values: -, Quiet, Minimal, Normal, Detailed, Diagnostic
+
+steps:
+
+- task: UseDotNet@2
+  displayName: UseDotNet 3.1
+  inputs:
+    packageType: 'sdk'
+    version: '3.1.x'
+
+- task: gitversion/setup@0
+  displayName: Install GitVersion
+  inputs:
+    versionSpec: '5.x'
+
+- task: gitversion/execute@0
+  displayName: Execute GitVersion
+  inputs:
+    useConfigFile: true
+    configFilePath: 'src/GitVersion.yml' # Setting targetPath is broken
+
+- script: |
+    echo ##vso[build.updatebuildnumber]$(fullSemVer)
+  displayName: Update Build.Number to $(fullSemVer)
+
+- task: DotNetCoreCLI@2
+  displayName: 'restore'
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+    feedsToUse: 'select'
+    verbosityRestore: '$(verbosityLevel)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'build'
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--no-restore -c Release'
+    verbosityRestore: '$(verbosityLevel)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'test'
+  inputs:
+    command: 'test'
+    projects: '**/*Tests.csproj'
+    arguments: '--no-build'
+    verbosityRestore: '$(verbosityLevel)'
+
+#- task: DotNetCoreCLI@2
+#  displayName: 'publish'
+#  inputs:
+#    command: 'publish'
+#    projects: '**/*.csproj'
+#    arguments: ' -c Release --no-build'
+#    verbosityRestore: '$(verbosityLevel)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'pack'
+  inputs:
+    command: 'pack'
+    packagesToPack: 'src/mylib/mylib.csproj'
+    configuration: 'Release'
+    nobuild: true
+    versioningScheme: 'off'
+    buildProperties: 'PackageVersion=$(NuGetVersionV2)'
+    verbosityPack: '$(verbosityLevel)'
