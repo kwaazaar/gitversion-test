@@ -19,12 +19,7 @@ steps:
 - task: gitversion/execute@0
   inputs:
     useConfigFile: true
-    configFilePath: 'src/GitVersion.yml'
-
-- task: gitversion/execute@0
-  displayName: Use GitVersion
-  inputs:
-    targetPath: 'src'
+    configFilePath: 'src/GitVersion.yml' # Setting targetPath is broken
 
 - script: |
     echo FullSemVer: $(fullSemVer)
