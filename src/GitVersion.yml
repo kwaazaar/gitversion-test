@@ -1,2 +1,2 @@
-next-version: 1.0 # version on next merge to master
+next-version: 2.0 # versionnr, will have postfix like 'ci-...' on non-master branches
 assembly-versioning-scheme: none # don't update AssemblyVersion (we do it manually because of runtime dependencies)
