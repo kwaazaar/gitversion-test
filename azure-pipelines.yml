@@ -55,6 +55,10 @@ steps:
 #    projects: '**/*.csproj'
 #    arguments: ' -c Release --no-build'
 
+- script: |
+    echo 'Package version: $(NuGetVersionV2)'
+    echo 'Package version2: $(GitVersion.NuGetVersionV2)'
+
 - task: DotNetCoreCLI@2
   displayName: 'pack'
   inputs:
