@@ -53,11 +53,11 @@ steps:
 #  inputs:
 #    command: 'publish'
 #    projects: '**/*.csproj'
-#    arguments: '--no-build'
+#    arguments: ' -c Release --no-build'
 
 - task: DotNetCoreCLI@2
   displayName: 'pack'
   inputs:
     command: 'pack'
     projects: '**/MyLib.csproj'
-    arguments: '--no-build'
+    arguments: '--no-build -c Release -p:PackageVersion=$(NuGetVersionV2)'
