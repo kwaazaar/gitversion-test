@@ -63,7 +63,7 @@ steps:
   displayName: 'pack'
   inputs:
     command: 'pack'
-    packagesToPack: 'src/MyLib/MyLib.csproj'
+    packagesToPack: 'src/mylib/mylib.csproj' # Wildcards don't seem to work
     configuration: 'Release'
     nobuild: true
     versioningScheme: 'off'
