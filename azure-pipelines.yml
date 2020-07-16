@@ -19,7 +19,7 @@ steps:
 - task: gitversion/execute@0
   displayName: Use GitVersion
   inputs:
-    targetPath: 'src/'
+    targetPath: 'src'
 
 - script: |
     echo FullSemVer: $(fullSemVer)
