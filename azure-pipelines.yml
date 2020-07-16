@@ -9,8 +9,10 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
+variables:
+  verbosityLevel: Normal # Valid values: -, Quiet, Minimal, Normal, Detailed, Diagnostic
 
+steps:
 - task: gitversion/setup@0
   displayName: Install GitVersion
   inputs:
@@ -32,7 +34,7 @@ steps:
     command: 'restore'
     projects: '**/*.csproj'
     feedsToUse: 'select'
-    verbosityRestore: 'Normal'
+    verbosityRestore: '$(verbosityLevel)'
 
 - task: DotNetCoreCLI@2
   displayName: 'build'
@@ -40,6 +42,7 @@ steps:
     command: 'build'
     projects: '**/*.csproj'
     arguments: '--no-restore -c Release'
+    verbosityRestore: '$(verbosityLevel)'
 
 - task: DotNetCoreCLI@2
   displayName: 'test'
@@ -47,6 +50,7 @@ steps:
     command: 'test'
     projects: '**/*Tests.csproj'
     arguments: '--no-build'
+    verbosityRestore: '$(verbosityLevel)'
 
 #- task: DotNetCoreCLI@2
 #  displayName: 'publish'
@@ -54,6 +58,7 @@ steps:
 #    command: 'publish'
 #    projects: '**/*.csproj'
 #    arguments: ' -c Release --no-build'
+#    verbosityRestore: '$(verbosityLevel)'
 
 - script: |
     echo 'Package version: $(NuGetVersionV2)'
@@ -68,3 +73,4 @@ steps:
     nobuild: true
     versioningScheme: 'off'
     buildProperties: 'PackageVersion=$(NuGetVersionV2)'
+    verbosityRestore: '$(verbosityLevel)'
