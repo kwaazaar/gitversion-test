@@ -17,9 +17,14 @@ steps:
     versionSpec: '5.x'
 
 - task: gitversion/execute@0
+  inputs:
+    useConfigFile: true
+    configFilePath: 'src/GitVersion.yml'
+
+- task: gitversion/execute@0
   displayName: Use GitVersion
   inputs:
-    targetPath: '/src'
+    targetPath: 'src'
 
 - script: |
     echo FullSemVer: $(fullSemVer)
