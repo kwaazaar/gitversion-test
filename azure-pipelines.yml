@@ -11,6 +11,7 @@ pool:
 
 steps:
 - task: DotNetCoreCLI@2
+  displayName: 'restore'
   inputs:
     command: 'restore'
     projects: '**/*.csproj'
@@ -18,24 +19,28 @@ steps:
     verbosityRestore: 'Normal'
 
 - task: DotNetCoreCLI@2
+  displayName: 'build'
   inputs:
     command: 'build'
     projects: '**/*.csproj'
     arguments: '--no-restore -c Release'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'test'
-    projects: '**/*Tests.csproj'
-    arguments: '--no-build'
+#- task: DotNetCoreCLI@2
+#  displayName: 'test'
+#  inputs:
+#    command: 'test'
+#    projects: '**/*Tests.csproj'
+#    arguments: '--no-build'
 
 - task: DotNetCoreCLI@2
+  displayName: 'publish'
   inputs:
     command: 'publish'
     projects: '**/*.csproj'
     arguments: '--no-build'
 
 - task: DotNetCoreCLI@2
+  displayName: 'pack'
   inputs:
     command: 'pack'
     projects: '**/MyLib.csproj'
