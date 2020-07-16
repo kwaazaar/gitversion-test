@@ -63,6 +63,7 @@ steps:
   displayName: 'pack'
   inputs:
     command: 'pack'
+    projects: '**/MyLib.csproj'
     packagesToPack: '**/MyLib.csproj'
     configuration: 'Release'
     nobuild: true
