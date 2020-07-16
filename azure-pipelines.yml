@@ -1,8 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - master
 
@@ -60,17 +55,13 @@ steps:
 #    arguments: ' -c Release --no-build'
 #    verbosityRestore: '$(verbosityLevel)'
 
-- script: |
-    echo 'Package version: $(NuGetVersionV2)'
-    echo 'Package version2: $(GitVersion.NuGetVersionV2)'
-
 - task: DotNetCoreCLI@2
   displayName: 'pack'
   inputs:
     command: 'pack'
-    packagesToPack: 'src/mylib/mylib.csproj' # Wildcards don't seem to work
+    packagesToPack: 'src/mylib/mylib.csproj'
     configuration: 'Release'
     nobuild: true
     versioningScheme: 'off'
     buildProperties: 'PackageVersion=$(NuGetVersionV2)'
-    verbosityRestore: '$(verbosityLevel)'
+    verbosityPack: '$(verbosityLevel)'
