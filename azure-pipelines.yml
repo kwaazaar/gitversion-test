@@ -25,19 +25,19 @@ steps:
     projects: '**/*.csproj'
     arguments: '--no-restore -c Release'
 
-#- task: DotNetCoreCLI@2
-#  displayName: 'test'
-#  inputs:
-#    command: 'test'
-#    projects: '**/*Tests.csproj'
-#    arguments: '--no-build'
-
 - task: DotNetCoreCLI@2
-  displayName: 'publish'
+  displayName: 'test'
   inputs:
-    command: 'publish'
-    projects: '**/*.csproj'
+    command: 'test'
+    projects: '**/*Tests.csproj'
     arguments: '--no-build'
+
+#- task: DotNetCoreCLI@2
+#  displayName: 'publish'
+#  inputs:
+#    command: 'publish'
+#    projects: '**/*.csproj'
+#    arguments: '--no-build'
 
 - task: DotNetCoreCLI@2
   displayName: 'pack'
