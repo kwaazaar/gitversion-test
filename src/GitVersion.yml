@@ -1,3 +1,5 @@
 next-version: 2.0 # versionnr, will have postfix like 'ci-...' on non-master branches
 assembly-versioning-scheme: none # don't update AssemblyVersion (we do it manually because of runtime dependencies)
 update-build-number: false # don't change, since it may be used for tagging Docker images
+assembly-versioning-format: '{Major}.{Minor}.{Patch}.{env:BUILD_NUMBER ?? 0}'
+#assembly-file-versioning-format: 
